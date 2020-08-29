@@ -37,7 +37,7 @@ const Home = () => (
 							<img
 								src="https://via.placeholder.com/150"
 								className="avatar-image mr-2"></img>
-							<span className="avatar-title">Filip Jerga</span>
+							<span className="avatar-title">Jocsan Mairena</span>
 						</div>
 					</a>
 					<a
@@ -57,7 +57,7 @@ const Home = () => (
 							<img
 								src="https://via.placeholder.com/150"
 								className="avatar-image mr-2"></img>
-							<span className="avatar-title">Filip Jerga</span>
+							<span className="avatar-title">Jocsan Mairena</span>
 						</div>
 					</a>
 					<a
@@ -77,7 +77,7 @@ const Home = () => (
 							<img
 								src="https://via.placeholder.com/150"
 								className="avatar-image mr-2"></img>
-							<span className="avatar-title">Filip Jerga</span>
+							<span className="avatar-title">Jocsan Mairena</span>
 						</div>
 					</a>
 				</div>
@@ -108,19 +108,19 @@ const Home = () => (
 						<tr>
 							<th>Some Topic Info</th>
 							<td className="category">General Discussion</td>
-							<td>Filip Jerga</td>
+							<td>Jocsan Mairena</td>
 							<td>2</td>
 						</tr>
 						<tr>
 							<th>Some Topic Info</th>
 							<td className="category">General Discussion</td>
-							<td>Filip Jerga</td>
+							<td>Jocsan Mairena</td>
 							<td>2</td>
 						</tr>
 						<tr>
 							<th>Some Topic Info</th>
 							<td className="category">General Discussion</td>
-							<td>Filip Jerga</td>
+							<td>Jocsan Mairena</td>
 							<td>2</td>
 						</tr>
 					</tbody>
@@ -154,7 +154,7 @@ const Home = () => (
 												<div className="topic-meta">
 													<div className="name-container">
 														<span className="name">
-															Filip Jerga
+															Jocsan Mairena
 														</span>
 													</div>
 													<div className="date-container">
@@ -213,7 +213,7 @@ const Home = () => (
 												<div className="topic-meta">
 													<div className="name-container">
 														<span className="name">
-															Filip Jerga
+															Jocsan Mairena
 														</span>
 													</div>
 													<div className="date-container">
@@ -272,7 +272,7 @@ const Home = () => (
 												<div className="topic-meta">
 													<div className="name-container">
 														<span className="name">
-															Filip Jerga
+															Jocsan Mairena
 														</span>
 													</div>
 													<div className="date-container">
