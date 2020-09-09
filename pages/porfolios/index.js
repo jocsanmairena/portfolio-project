@@ -1,5 +1,14 @@
-const Portfolios = () => (
+const apiCall = () => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve({ testingData: 'Just some testing data' })
+		}, 2000)
+	})
+}
+
+const Portfolios = (props) => (
 	<>
+		{props.testingData}
 		<section className="section-title">
 			<div className="px-2">
 				<div className="pt-5 pb-4">
@@ -73,5 +82,11 @@ const Portfolios = () => (
 		</section>
 	</>
 )
+//We can add this initial data to our props in our Portfolios component,
+//if none is defined at the _app.js component
+Portfolios.getInitialProps = async () => {
+	const data = await apiCall()
+	return { ...data }
+}
 
 export default Portfolios
