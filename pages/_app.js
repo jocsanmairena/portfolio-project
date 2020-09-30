@@ -8,20 +8,22 @@ import NavBar from '../components/shared/NavBar'
 /* Page Template */
 /* Component takes each page value defined in the pages folder */
 const MyApp = ({ Component, pageProps }) => {
-	return (
-		<>
-			<div className="portfolio-app">
-				<NavBar />
-				{pageProps.appData}
-				{/* If Component is home, then only then output Hero */}
-				{Component.name === 'Home' && <Hero />}
-				<div className="container">
-					<Component {...pageProps} />
-				</div>
-			</div>
-		</>
-	)
+  return (
+    <>
+      <div className='portfolio-app'>
+        <NavBar />
+        {/* If Component is home, then only then output Hero */}
+        {Component.name === 'Home' && <Hero />}
+        <div className='container'>
+          <Component {...pageProps} />
+        </div>
+      </div>
+    </>
+  )
 }
+
+export default MyApp
+
 /* 
 When getInitialProps defined at _app.js., getInitialProps will not be called on other pages without the import App from 'next/app' configuration.
 getInitialProps receives a single argument called context, it's an object with the following properties:
@@ -32,22 +34,6 @@ getInitialProps receives a single argument called context, it's an object with t
       res - HTTP response object (server only)
       err - Error object if any error is encountered during the rendering
 */
-MyApp.getInitialProps = async (context) => {
-	//App refers to (whatever page is about to be render).
-	//App.getInitialProps checks if there exist a getInitialProps in App.
-	//If there is a getInitialProps in App, then(&&) we execute getInitialProps function: App.getInitialProps().
-	console.log('getInitialProps of _App')
-	const initialProps =
-		App.getInitialProps && (await App.getInitialProps(context))
-
-	return {
-		pageProps: {
-			appData: 'Hello _App Component',
-			...initialProps.pageProps,
-		},
-	}
-}
-export default MyApp
 
 /*
 Next.js uses the App component to initialize pages.
