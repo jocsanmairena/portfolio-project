@@ -1,12 +1,14 @@
-//App is used to references whatever page is about to be render.
-import App from 'next/app'
+// _app.js is a special component. _app.js code executes first, before rendering any page under the pages folder.
+// import App from 'next/app'
+// We do not need to speficy the node_modules folder to retrive bootstrap.
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../styles/index.scss'
-import Hero from '../components/shared/Hero'
-import NavBar from '../components/shared/NavBar'
+import '@/styles/index.scss'
+import Hero from '@/components/shared/Hero'
+import NavBar from '@/components/shared/NavBar'
 
 /* Page Template */
-/* Component takes each page value defined in the pages folder */
+// Component takes the value of the page you are navigating to.
+// Component takes only the page values defined under the pages folder.
 const MyApp = ({ Component, pageProps }) => {
   return (
     <>
