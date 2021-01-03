@@ -7,43 +7,30 @@ const NavBar = () => (
         Jocsan Mairena
       </Navbar.Brand>
       <Navbar.Toggle />
-
-      <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-        <ul className='navbar-nav'>
-          <li className='nav-item mr-3'>
-            <a className='nav-link' href='#'>
-              Portfolio
-            </a>
-          </li>
-          <li className='nav-item mr-3'>
-            <a className='nav-link' href='#'>
-              Courses
-            </a>
-          </li>
-          <li className='nav-item mr-3'>
-            <a className='nav-link' href='#'>
-              Cv
-            </a>
-          </li>
-          <li className='nav-item mr-3'>
-            <a className='nav-link' href='#'>
-              Ask me
-            </a>
-          </li>
-        </ul>
-        <ul className='navbar-nav ml-auto'>
-          <li className='nav-item mr-3'>
-            <a className='nav-link' href='#'>
-              Sign Up
-            </a>
-          </li>
-          <li className='nav-item mr-3'>
-            <a className='nav-link btn btn-success bg-green-2 bright' href='#'>
-              Sign In
-            </a>
-          </li>
-        </ul>
-      </div>
+      <Navbar.Collapse>
+        <Nav className='mr-auto'>
+          <Nav.Link href='#' className='mr-3'>
+            Portfolios
+          </Nav.Link>
+          <Nav.Link href='#' className='mr-3'>
+            Courses
+          </Nav.Link>
+          <Nav.Link href='#' className='mr-3'>
+            CV
+          </Nav.Link>
+          <Nav.Link href='#' className='mr-3'>
+            Ask Me
+          </Nav.Link>
+        </Nav>
+        <Nav>
+          <Nav.Link href='#' className='mr-3'>
+            Sign Up
+          </Nav.Link>
+          <Nav.Link href='#' className='mr-3 btn btn-success bg-green-2 bright'>
+            Sign In
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   </div>
 )
