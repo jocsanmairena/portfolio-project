@@ -1,20 +1,22 @@
 // _app.js is a special component. _app.js code executes first, before rendering any page under the pages folder.
-// import App from 'next/app'
 // We do not need to speficy the node_modules folder to retrive bootstrap.
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/index.scss'
+import App from 'next/app'
 import Hero from '@/components/shared/Hero'
 import NavBar from '@/components/shared/NavBar'
 
-/* Page Template */
-// Component takes the value of the page you are navigating to.
-// Component takes only the page values defined under the pages folder.
+/* 
+Component takes the value of the page you are navigating to.
+Component takes only the page values defined under the pages folder.
+If Component is home, then only then output Hero 
+*/
 const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <div className='portfolio-app'>
         <NavBar />
-        {/* If Component is home, then only then output Hero */}
+        {pageProps.appData}
         {Component.name === 'Home' && <Hero />}
         <div className='container'>
           <Component {...pageProps} />
@@ -22,6 +24,33 @@ const MyApp = ({ Component, pageProps }) => {
       </div>
     </>
   )
+}
+
+/* 
+Only top most level page getInititalProps gets call.
+How to call other pages getInititalProps, when getInititalProps already called at _app.js?
+1. _app.js code executes every time we navigate to a new page.  
+2. getInitialProps receives a single argument called context.
+3. context it's an object with the pathname property.
+4. pathname shows the current page path or route.
+5. we import App from 'next/app'
+6. App references a new page to be render. If the new page contains the getInitialProps function,
+    then only then, call App.getInitialProps(context). Then, merge _app.js getInitialProps with otherPageInitialProps.
+ */
+MyApp.getInitialProps = async context => {
+  console.log('_APP getInitialProps')
+
+  const otherPageInitialProps =
+    App.getInitialProps && (await App.getInitialProps(context))
+
+  console.log(otherPageInitialProps)
+
+  return {
+    pageProps: {
+      appData: 'Hello _app.js page component',
+      ...otherPageInitialProps.pageProps
+    }
+  }
 }
 
 export default MyApp

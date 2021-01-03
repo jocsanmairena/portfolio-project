@@ -70,6 +70,8 @@ const Portfolios = props => (
 //We can add this initial data to our props in our Portfolios component,
 //if none is defined at the _app.js component
 Portfolios.getInitialProps = async () => {
+  console.log('PORTFOLIOS getInitialProps')
+
   const data = await apiCall()
   return { ...data }
 }
