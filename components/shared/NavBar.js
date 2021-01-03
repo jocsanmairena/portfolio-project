@@ -1,9 +1,11 @@
+import { Navbar, NavDropdown, Nav } from 'react-bootstrap'
+
 const NavBar = () => (
   <div className='navbar-wrapper'>
-    <nav className='navbar navbar-expand-lg navbar-dark fj-mw9'>
-      <a className='navbar-brand mr-3 font-weight-bold' href='#'>
+    <Navbar expand='lg' className='navbar-dark fj-mw9'>
+      <Navbar.Brand className='mr-3 font-weight-bold' href='#'>
         Jocsan Mairena
-      </a>
+      </Navbar.Brand>
       <button
         className='navbar-toggler'
         type='button'
@@ -52,7 +54,7 @@ const NavBar = () => (
           </li>
         </ul>
       </div>
-    </nav>
+    </Navbar>
   </div>
 )
 
