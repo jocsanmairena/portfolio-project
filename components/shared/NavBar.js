@@ -10,9 +10,9 @@ const AppLink = ({ children, className, href }) => (
 const NavBar = () => (
   <div className='navbar-wrapper'>
     <Navbar expand='lg' className='navbar-dark fj-mw9'>
-      <Navbar.Brand className='mr-3 font-weight-bold'>
-        <AppLink href='/'>Jocsan Mairena</AppLink>
-      </Navbar.Brand>
+      <AppLink href='/' className='navbar - brand mr-3 font-weight-bold'>
+        Jocsan Mairena
+      </AppLink>
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav className='mr-auto'>
