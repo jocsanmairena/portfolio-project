@@ -12,6 +12,8 @@ const fetchPortfolios = () => {
             location
             jobTitle
             description
+            startDate
+            endDate
         }
     }`
 
