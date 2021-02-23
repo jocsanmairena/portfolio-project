@@ -38,7 +38,7 @@ How to call other pages getInititalProps, when getInititalProps already called a
     then only then, call App.getInitialProps(context). Then, merge _app.js getInitialProps with otherPageInitialProps.
  */
 MyApp.getInitialProps = async context => {
-  console.log('_APP getInitialProps')
+  console.log('GET INITIAL PROPS _APP')
 
   const otherPageInitialProps =
     App.getInitialProps && (await App.getInitialProps(context))

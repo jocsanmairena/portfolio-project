@@ -49,11 +49,11 @@ const data = {
 
 app.prepare().then(() => {
   const server = express() //create express server
-  // Construct a schema, using GRAPHQL schema language
+  // STRUCTURE OF YOU DATA (SCHEMA): Construct a schema, using GRAPHQL schema language
   const schema = buildSchema(`
       type Porfolio {
         _id: ID,
-        title: String,
+        title: String!,
         company: String,
         companyWebsite: String,
         location: String,
@@ -64,7 +64,7 @@ app.prepare().then(() => {
       }
       type Query {
         hello: String
-        portfolio: Porfolio
+        portfolio(id: ID): Porfolio
         portfolios: [Porfolio]
       }
   `)
@@ -74,9 +74,14 @@ app.prepare().then(() => {
   const root = {
     hello: () => {
       return 'Hello World'
-    },
-    portfolio: () => {
-      return data.portfolios[0]
+    }, //id destructurized
+    portfolio: ({ id }) => {
+      //find is an iterable method. Per each portfolio, find the portfolio with the provided portfolio _id.
+      const portfolioFound = data.portfolios.find(
+        //find the fist portfolio element who's _id is the same as the one provided as input.
+        portfolio => portfolio._id === id
+      )
+      return portfolioFound
     },
     portfolios: () => {
       return data.portfolios

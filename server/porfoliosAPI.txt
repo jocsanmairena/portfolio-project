@@ -1,0 +1,97 @@
+server. js
+
+We have schema and also data:
+----------------------------
+const schema = buildSchema(`
+                             
+      type Portfolio {
+        _id: ID,
+        title: String,
+        company: String,
+        companyWebsite: String,
+        location: String,
+        jobTitle: String,
+        description: String,
+        startDate: String,
+        endDate: String
+      }
+      type Query {
+        hello: String
+        portfolio(ID): Portfolio
+        portfolios: [Portfolio]
+      }
+  `)
+
+const data = {
+  portfolios: [
+    {
+      _id: 'sad87daasdhjdjsb',
+      title: 'Job in Netcentric',
+      company: 'Netcentric',
+      companyWebsite: 'www.google.com',
+      location: 'Spain, Barcelona',
+      jobTitle: 'Engineer',
+      description: 'Doing something, programing....',
+      startDate: '01/01/2014',
+      endDate: '01/01/2016'
+    },
+    {
+      _id: 'da789ad1',
+      title: 'Job in Siemens',
+      company: 'Siemens',
+      companyWebsite: 'www.google.com',
+      location: 'Slovakia, Kosice',
+      jobTitle: 'Software Engineer',
+      description: 'Responsoble for parsing framework for JSON medical data.',
+      startDate: '01/01/2011',
+      endDate: '01/01/2013'
+    },
+    {
+      _id: 'sadcxv9',
+      title: 'Work in USA',
+      company: 'WhoKnows',
+      companyWebsite: 'www.google.com',
+      location: 'USA, Montana',
+      jobTitle: 'Housekeeping',
+      description: 'So much responsibility....Overloaaaaaad',
+      startDate: '01/01/2010',
+      endDate: '01/01/2011'
+    }
+  ]
+}
+
+
+portfolio.js
+We call getInitalProps, We call fetchPortfolios(), which performs a graphql Query in our server, using axios.
+
+
+// getInitalProps for Portfolios Component
+Portfolios.getInitialProps = async () => {
+  console.log('PORTFOLIOS getInitialProps')
+  const portfolios = await fetchPortfolios()
+  return { portfolios } //return portfolios as properties to our page
+}
+
+const fetchPortfolios = () => {
+  const query = `
+    query Porfolios {
+        portfolios {
+            _id
+            title
+            companyWebsite
+            location
+            jobTitle
+            description
+            startDate
+            endDate
+        }
+    }`
+
+  return axios
+    .post('http://localhost:3000/graphql', { query })
+    .then(({ data: graph }) => {
+      debugger
+      //destructurize data as graph (data.data.portfolios to graph.data.portfolios )
+      return graph.data.portfolios
+    })
+}
