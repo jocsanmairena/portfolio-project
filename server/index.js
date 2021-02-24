@@ -1,56 +1,56 @@
 //custom functionality for server side rendering
-const express = require('express')
-const next = require('next')
-const { graphqlHTTP } = require('express-graphql')
-const { buildSchema } = require('graphql')
+const express = require("express")
+const next = require("next")
+const { graphqlHTTP } = require("express-graphql")
+const { buildSchema } = require("graphql")
 
 const port = parseInt(process.env.PORT, 10) || 3000 //set the port number. 3000 if local environment
-const dev = process.env.NODE_ENV !== 'production' //set a dev environment if not equal to production
+const dev = process.env.NODE_ENV !== "production" //set a dev environment if not equal to production
 const app = next({ dev })
 const handle = app.getRequestHandler() // reqquest handler
 
 const data = {
-  portfolios: [
-    {
-      _id: 'sad87daasdhjdjsb',
-      title: 'Job in Netcentric',
-      company: 'Netcentric',
-      companyWebsite: 'www.google.com',
-      location: 'Spain, Barcelona',
-      jobTitle: 'Engineer',
-      description: 'Doing something, programing....',
-      startDate: '01/01/2014',
-      endDate: '01/01/2016'
-    },
-    {
-      _id: 'da789ad1',
-      title: 'Job in Siemens',
-      company: 'Siemens',
-      companyWebsite: 'www.google.com',
-      location: 'Slovakia, Kosice',
-      jobTitle: 'Software Engineer',
-      description: 'Responsoble for parsing framework for JSON medical data.',
-      startDate: '01/01/2011',
-      endDate: '01/01/2013'
-    },
-    {
-      _id: 'sadcxv9',
-      title: 'Work in USA',
-      company: 'WhoKnows',
-      companyWebsite: 'www.google.com',
-      location: 'USA, Montana',
-      jobTitle: 'Housekeeping',
-      description: 'So much responsibility....Overloaaaaaad',
-      startDate: '01/01/2010',
-      endDate: '01/01/2011'
-    }
-  ]
+	portfolios: [
+		{
+			_id: "sad87daasdhjdjsb",
+			title: "Job in Netcentric",
+			company: "Netcentric",
+			companyWebsite: "www.google.com",
+			location: "Spain, Barcelona",
+			jobTitle: "Engineer",
+			description: "Doing something, programing....",
+			startDate: "01/01/2014",
+			endDate: "01/01/2016",
+		},
+		{
+			_id: "da789ad1",
+			title: "Job in Siemens",
+			company: "Siemens",
+			companyWebsite: "www.google.com",
+			location: "Slovakia, Kosice",
+			jobTitle: "Software Engineer",
+			description: "Responsoble for parsing framework for JSON medical data.",
+			startDate: "01/01/2011",
+			endDate: "01/01/2013",
+		},
+		{
+			_id: "sadcxv9",
+			title: "Work in USA",
+			company: "WhoKnows",
+			companyWebsite: "www.google.com",
+			location: "USA, Montana",
+			jobTitle: "Housekeeping",
+			description: "So much responsibility....Overloaaaaaad. NOOOOOOO",
+			startDate: "01/01/2010",
+			endDate: "01/01/2011",
+		},
+	],
 }
 
 app.prepare().then(() => {
-  const server = express() //create express server
-  // STRUCTURE OF YOU DATA (SCHEMA): Construct a schema, using GRAPHQL schema language
-  const schema = buildSchema(`
+	const server = express() //create express server
+	// STRUCTURE OF YOU DATA (SCHEMA): Construct a schema, using GRAPHQL schema language
+	const schema = buildSchema(`
       type Porfolio {
         _id: ID,
         title: String!,
@@ -69,40 +69,40 @@ app.prepare().then(() => {
       }
   `)
 
-  //name of query and return type
-  // root provides a resolver for each API endpoint
-  const root = {
-    hello: () => {
-      return 'Hello World'
-    }, //id destructurized
-    portfolio: ({ id }) => {
-      //find is an iterable method. Per each portfolio, find the portfolio with the provided portfolio _id.
-      const portfolioFound = data.portfolios.find(
-        //find the fist portfolio element who's _id is the same as the one provided as input.
-        portfolio => portfolio._id === id
-      )
-      return portfolioFound
-    },
-    portfolios: () => {
-      return data.portfolios
-    }
-  }
+	//name of query and return type
+	// root provides a resolver for each API endpoint
+	const root = {
+		hello: () => {
+			return "Hello World"
+		}, //id destructurized VS args.
+		portfolio: ({ id }) => {
+			//find is an iterable method. Per each portfolio, find the portfolio with the provided portfolio _id.
+			const portfolioFound = data.portfolios.find(
+				//find the fist portfolio element who's _id is the same as the one provided as input.
+				(portfolio) => portfolio._id === id,
+			)
+			return portfolioFound
+		},
+		portfolios: () => {
+			return data.portfolios
+		},
+	}
 
-  server.use(
-    '/graphql',
-    graphqlHTTP({
-      schema,
-      rootValue: root,
-      graphiql: true,
-      pretty: true
-    })
-  )
-  server.all('*', (req, res) => {
-    return handle(req, res)
-  })
+	server.use(
+		"/graphql",
+		graphqlHTTP({
+			schema,
+			rootValue: root,
+			graphiql: true,
+			pretty: true,
+		}),
+	)
+	server.all("*", (req, res) => {
+		return handle(req, res)
+	})
 
-  server.listen(port, err => {
-    if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
-  })
+	server.listen(port, (err) => {
+		if (err) throw err
+		console.log(`> Ready on http://localhost:${port}`)
+	})
 })
