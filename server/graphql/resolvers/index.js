@@ -53,6 +53,7 @@ exports.portfolioQueries = {
 }
 
 exports.portfolioMutations = {
+  //receives as parameter input
   createPortfolio: ( root, { input } ) => {
     const _id = require( "crypto" ).randomBytes( 10 ).toString( "hex" )
     const newPortfolio = { ...input }
@@ -60,4 +61,20 @@ exports.portfolioMutations = {
     data.portfolios.push( newPortfolio )
     return newPortfolio
   },
+  //receives as parameter id, input
+  updatePortfolio: ( root, { id, input } ) => {
+    //find the index of data array by id
+    const index = data.portfolios.findIndex( portfolioItem => portfolioItem._id === id )
+    //oldPortfolio data
+    const oldPortfolio = data.portfolios[index]
+    //newPortfolio becomes an object where the value of id is passed to _id and an entire copy of input is passed by distructurizing(...input). This method overwrites all data.
+    //const newPortfolio = { _id: id, ...input }
+    //we merger oldPortfolio with input  portfolio data.
+    const newPortfolio = { ...oldPortfolio, ...input }
+    //we find the correct portfolio out of all portfolios by index and replace its values with newPortfolio.
+    const updatedPorfolio = data.portfolios[index] = newPortfolio
+    return updatedPorfolio
+
+
+  }
 }

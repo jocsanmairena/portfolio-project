@@ -25,7 +25,8 @@ app.prepare().then( () => {
       }
       
       type Mutation {
-        createPortfolio( input: CreatePortfolioInput) : Portfolio
+        createPortfolio( input: PortfolioInput ) : Portfolio
+        updatePortfolio( id: ID, input: PortfolioInput ) : Portfolio
       }
   `)
 

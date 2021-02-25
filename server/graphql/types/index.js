@@ -11,7 +11,7 @@ exports.portfolioTypes = `
     endDate: String
   }
   
-  input CreatePortfolioInput {
+  input PortfolioInput {
     title: String!,
     company: String,
     companyWebsite: String,
@@ -20,6 +20,5 @@ exports.portfolioTypes = `
     description: String,  
     startDate: String,
     endDate: String
-  } 
-  
+  }  
   `
