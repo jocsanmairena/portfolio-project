@@ -1,30 +1,75 @@
+import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client/react'
+//import 'isomorphic-unfetch'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../styles/index.scss'
+
+import Navbar from '../components/shared/Navbar'
+import Hero from '../components/shared/Hero'
+
+const apolloClient = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache()
+})
+
+const MyApp = ({ Component, pageProps }) => {
+  const isHomePage = () => Component.name === 'Home'
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <div className='portfolio-app'>
+        <Navbar />
+        {isHomePage() && <Hero />}
+        <div className='container'>
+          <Component {...pageProps} />
+        </div>
+        {/* FOOTER STARTS */}
+        {isHomePage() && (
+          <footer
+            id='sticky-footer'
+            className='py-4 bg-black text-white-50 py-3'
+          >
+            <div className='container text-center'>
+              <small>Copyright &copy; Your Website</small>
+            </div>
+          </footer>
+        )}
+        {/* FOOTER ENDS */}
+      </div>
+    </ApolloProvider>
+  )
+}
+
+export default MyApp
+
 // _app.js is a special component. _app.js code executes first, before rendering any page under the pages folder.
 // We do not need to speficy the node_modules folder to retrive bootstrap.
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '@/styles/index.scss'
-import App from 'next/app'
-import Hero from '@/components/shared/Hero'
-import NavBar from '@/components/shared/NavBar'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+// import '@/styles/index.scss'
+// import App from 'next/app'
+// import Hero from '@/components/shared/Hero'
+// import NavBar from '@/components/shared/NavBar'
 
 /* 
 Component takes the value of the page you are navigating to.
 Component takes only the page values defined under the pages folder.
 If Component is home, then only then output Hero 
 */
-const MyApp = ({ Component, pageProps }) => {
-  return (
-    <>
-      <div className='portfolio-app'>
-        <NavBar />
-        {pageProps.appData}
-        {Component.name === 'Home' && <Hero />}
-        <div className='container'>
-          <Component {...pageProps} />
-        </div>
-      </div>
-    </>
-  )
-}
+// const MyApp = ({ Component, pageProps }) => {
+//   return (
+//     <>
+//       <div className='portfolio-app'>
+//         <NavBar />
+//         {pageProps.appData}
+//         {Component.name === 'Home' && <Hero />}
+//         <div className='container'>
+//           <Component {...pageProps} />
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
 
 /* 
 Only top most level page getInititalProps gets call.
@@ -37,23 +82,23 @@ How to call other pages getInititalProps, when getInititalProps already called a
 6. App references a new page to be render. If the new page contains the getInitialProps function,
     then only then, call App.getInitialProps(context). Then, merge _app.js getInitialProps with otherPageInitialProps.
  */
-MyApp.getInitialProps = async context => {
-  console.log('GET INITIAL PROPS _APP')
+// MyApp.getInitialProps = async context => {
+//   console.log('GET INITIAL PROPS _APP')
 
-  const otherPageInitialProps =
-    App.getInitialProps && (await App.getInitialProps(context))
+//   const otherPageInitialProps =
+//     App.getInitialProps && (await App.getInitialProps(context))
 
-  console.log(otherPageInitialProps)
+//   console.log(otherPageInitialProps)
 
-  return {
-    pageProps: {
-      appData: 'Hello _app.js page component',
-      ...otherPageInitialProps.pageProps
-    }
-  }
-}
+//   return {
+//     pageProps: {
+//       appData: 'Hello _app.js page component',
+//       ...otherPageInitialProps.pageProps
+//     }
+//   }
+// }
 
-export default MyApp
+// export default MyApp
 
 /* 
 When getInitialProps defined at _app.js., getInitialProps will not be called on other pages without the import App from 'next/app' configuration.
